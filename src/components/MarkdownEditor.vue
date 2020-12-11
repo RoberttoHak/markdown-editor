@@ -54,13 +54,9 @@ export default {
     insertFootnote() {
       const results = this.value.matchAll(/\[\^(\d+)]/g)
 
-      let maxNum = 0
+      let maxNum = Math.max(...Array.from(results).map(el => +el[1]))
 
-      for (let res of results) {
-        let num = +res[1]
-
-        if (num > maxNum) maxNum = num
-      }
+      if (maxNum < 0) maxNum = 0
 
       this.insert(`[^${maxNum + 1}]`)
 
